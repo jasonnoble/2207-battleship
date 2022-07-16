@@ -70,7 +70,6 @@ RSpec.describe Cell do
         before do
           cell.place_ship(cruiser)
         end
-      
         it 'renders as "." if debug == false (default)' do
           expect(cell.render).to eq('.')
         end

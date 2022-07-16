@@ -34,12 +34,5 @@ class Cell
         display ? "S" : "."
       end
     end
-    
-    # return '.' if empty? && !fired_upon?
-    # return 'M' if empty?
-    # return 'S' if !empty? && display && !fired_upon?
-    
-    # ship.sunk? ? "X" : "H"
-
   end
 end
