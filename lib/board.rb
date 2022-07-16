@@ -32,7 +32,21 @@ class Board
     end
   end
 
+  def render(display = false)
+    "  1 2 3 4 \n" +
+    "A " + render_row('A', display) +
+    "B " + render_row('B', display) +
+    "C " + render_row('C', display) +
+    "D " + render_row('D', display)
+  end
+
   private
+
+  def render_row(row, display)
+    (1..4).map do |column|
+      cells[row + column.to_s].render(display)
+    end.join(" ") + " \n"
+  end
 
   def coordinates_in_same_row?(coordinates)
     coordinates.map{|coordinate| coordinate[0] == coordinates[0][0]}.all?

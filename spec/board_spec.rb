@@ -84,4 +84,18 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe '#render' do
+    before do
+      board.place(cruiser, ["A1", "A2", "A3"])
+    end
+
+    it 'renders the board' do
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'renders the board (debug == true)' do
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
 end

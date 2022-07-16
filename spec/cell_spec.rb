@@ -66,10 +66,20 @@ RSpec.describe Cell do
       it 'renders as "." if debug == false (default)' do
         expect(cell.render).to eq('.')
       end
-      it 'renders as "S" if debug == true and has a ship' do
-        cell.place_ship(cruiser)
-        expect(cell.render(true)).to eq('S')
+      context 'when the cell has a ship' do
+        before do
+          cell.place_ship(cruiser)
+        end
+      
+        it 'renders as "." if debug == false (default)' do
+          expect(cell.render).to eq('.')
+        end
+        it 'renders as "S" if debug == true and has a ship' do
+          
+          expect(cell.render(true)).to eq('S')
+        end
       end
+
     end
 
     context 'when the cell has been fired upon' do
