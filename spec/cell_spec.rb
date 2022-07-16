@@ -61,4 +61,38 @@ RSpec.describe Cell do
       end
     end
   end
+  describe '#render' do
+    context 'when the cell has not been fired upon' do
+      it 'renders as "." if debug == false (default)' do
+        expect(cell.render).to eq('.')
+      end
+      it 'renders as "S" if debug == true and has a ship' do
+        cell.place_ship(cruiser)
+        expect(cell.render(true)).to eq('S')
+      end
+    end
+
+    context 'when the cell has been fired upon' do
+      before do
+        cell.fire_upon
+      end
+
+      it 'renders as "M" if there is no ship' do
+        expect(cell.render).to eq("M")
+      end
+
+      context 'when the cell has a ship' do
+        before do
+          cell.place_ship(cruiser)
+        end
+        it 'renders as "H" if the ship is not sunk' do
+          expect(cell.render).to eq("H")
+        end
+        it 'renders as "X" if the ship is sunk' do
+          3.times { cruiser.hit }
+          expect(cell.render).to eq("X")
+        end
+      end
+    end
+  end
 end
