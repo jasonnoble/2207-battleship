@@ -19,9 +19,17 @@ class Board
   def valid_placement?(ship, coordinates)
     return false if ship.length != coordinates.length
     return false if coordinates.any?{|coordinate| !valid_coordinate?(coordinate)}
+    return false if coordinates.any?{|coordinate| !cells[coordinate].empty? }
     return true if coordinates_in_same_row?(coordinates) && columns_consecutive?(coordinates)
     return true if coordinates_in_same_column?(coordinates) && rows_consecutive?(coordinates)
     return false
+  end
+
+  def place(ship, coordinates)
+    return unless valid_placement?(ship, coordinates)
+    coordinates.each do |coordinate|
+      cells[coordinate].place_ship(ship)
+    end
   end
 
   private

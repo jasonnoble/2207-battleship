@@ -59,5 +59,29 @@ RSpec.describe Board do
     it 'returns false when rows and columns are not the same' do
       expect(board).not_to be_valid_placement(cruiser, ["A1", "B2", "C3"])
     end
+
+    it 'returns false if any coordinates already have a ship' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board).not_to be_valid_placement(submarine, ["A1", "B1"])
+    end
+  end
+
+  describe '#place(ship, coordinates)' do
+    context 'when valid_placement?' do
+      it 'places the ship at the coordinates' do
+        board.place(cruiser, ["A1", "A2", "A3"])
+        expect(board.cells["A1"].ship).to eq(cruiser)
+        expect(board.cells["A2"].ship).to eq(cruiser)
+        expect(board.cells["A3"].ship).to eq(cruiser)
+      end
+    end
+
+    context 'when not valid_placement?' do
+      it 'does not place the ship' do
+        board.place(cruiser, ["A1", "A2", "A3"])
+        board.place(submarine, ["A1", "B1"])
+        expect(board.cells["B1"]).to be_empty
+      end
+    end
   end
 end
