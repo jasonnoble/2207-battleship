@@ -38,5 +38,27 @@ RSpec.describe Cell do
       expect{ cell.place_ship(cruiser) }.to change(cell, :empty?).from(true).to(false)
     end
   end
+  describe '#fired_upon?' do
+    before do
+      cell.place_ship(cruiser)
+    end
+    it 'returns false when it has not been fired on' do
+      expect(cell).not_to be_fired_upon
+    end
 
+    it 'returns true when it has been fired on' do
+      cell.fire_upon
+      expect(cell).to be_fired_upon
+    end
+  end
+  describe '#fire_upon' do
+    context 'with a ship' do
+      before do
+        cell.place_ship(cruiser)
+      end
+      it 'decreases the ships health' do
+        expect{ cell.fire_upon }.to change(cruiser, :health).from(3).to(2)
+      end
+    end
+  end
 end
