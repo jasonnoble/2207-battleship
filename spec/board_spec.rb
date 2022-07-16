@@ -34,6 +34,10 @@ RSpec.describe Board do
     it 'returns false when the ship length != coordinates length' do
       expect(board).not_to be_valid_placement(cruiser, ["A1", "A2"])
     end
+
+    it 'returns false when a coordinate is invalid' do
+      expect(board).not_to be_valid_placement(cruiser, ["Y1", "Y2", "Y3"])
+    end
     context 'when coordinates are in the same row' do
       it 'returns false when columns are non consecutive' do
         expect(board).not_to be_valid_placement(cruiser, ["A3", "A2", "A1"])
